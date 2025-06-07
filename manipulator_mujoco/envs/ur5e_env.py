@@ -108,6 +108,17 @@ class UR5eEnv(gym.Env):
 
         return observation, info
 
+    def set_target_pose(self, pose: np.ndarray):
+        """
+        Atualiza a pose alvo do controlador operacional.
+
+        Args:
+            pose (np.ndarray): vetor [x, y, z, qx, qy, qz, qw]
+        """
+        position = pose[:3]
+        quaternion = pose[3:]
+        self._target.set_mocap_pose(self._physics, position, quaternion)
+
     def step(self, action: np.ndarray) -> tuple:
         # TODO use the action to control the arm
 

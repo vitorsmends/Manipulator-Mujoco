@@ -12,7 +12,7 @@ observation, info = env.reset(seed=42)
 while True:
     # Choose a random action from the available action space
     action = env.action_space.sample()
-
+    # action example: [ 0.08894891 -0.01609753 -0.05656727  0.03686642  0.0722223  -0.01148913]
     # Take a step in the environment using the chosen action
     observation, reward, terminated, truncated, info = env.step(action)
 
