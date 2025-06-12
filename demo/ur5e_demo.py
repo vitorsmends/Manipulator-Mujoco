@@ -1,25 +1,23 @@
 import gymnasium
 import manipulator_mujoco
+import numpy as np
 
-# Create the environment with rendering in human mode
-env = gymnasium.make('manipulator_mujoco/UR5eEnv-v0', render_mode='human')
+# Cria o ambiente com renderização
+env = gymnasium.make('manipulator_mujoco/UR5eEnv-v0', render_mode='human')  # ambiente com JointEffortController
 
-# Reset the environment with a specific seed for reproducibility
-observation, info = env.reset(seed=42)
+# Reseta o ambiente
+obs, info = env.reset(seed=42)
 
-# Run simulation for a fixed number of steps
-# for _ in range(1000):
+# Loop de simulação
 while True:
-    # Choose a random action from the available action space
+    # Envia uma ação aleatória (esforços nas 6 juntas)
     action = env.action_space.sample()
-    # action example: [ 0.08894891 -0.01609753 -0.05656727  0.03686642  0.0722223  -0.01148913]
-    # Take a step in the environment using the chosen action
-    observation, reward, terminated, truncated, info = env.step(action)
 
-    # Check if the episode is over (terminated) or max steps reached (truncated)
+    # Executa um passo com a ação
+    obs, reward, terminated, truncated, info = env.step(action)
+
+    # Reinicia se o episódio terminar
     if terminated or truncated:
-        # If the episode ends or is truncated, reset the environment
-        observation, info = env.reset()
+        obs, info = env.reset()
 
-# Close the environment when the simulation is done
 env.close()
